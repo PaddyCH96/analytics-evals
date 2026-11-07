@@ -29,6 +29,10 @@ check("Decimal vs float", compare(
     [{"region":"EMEA","revenue":Decimal("100.00")},{"region":"APAC","revenue":Decimal("250.00")}],
     base).passed, True)
 check("row order ignored", compare(list(reversed(base)), base).passed, True)
+check("row order ignores duplicate DataFrame index labels", compare(
+    pd.DataFrame(list(reversed(base)), index=[7, 7]),
+    pd.DataFrame(base, index=[3, 9]),
+).passed, True)
 check("column order ignored", compare(
     [{"revenue":100.0,"region":"EMEA"},{"revenue":250.0,"region":"APAC"}], base).passed, True)
 check("currency strings", compare(
