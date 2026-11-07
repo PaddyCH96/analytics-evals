@@ -153,6 +153,7 @@ def _sort_rows(df: pd.DataFrame) -> pd.DataFrame:
     """Sort by every column using a string key so mixed types never raise."""
     if df.empty:
         return df
+    df = df.reset_index(drop=True)
     key = df.astype(str)
     order = key.sort_values(by=list(key.columns), kind="mergesort").index
     return df.loc[order].reset_index(drop=True)
